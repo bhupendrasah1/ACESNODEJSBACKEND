@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 require("dotenv").config()
 
 const express = require("express")
@@ -10,33 +9,15 @@ const jwt = require("jsonwebtoken")
 const cookieParser = require('cookie-parser')
 
 const app = express()
-=======
-
-require("dotenv").config()
-const express = require("express")
-const connectToDb = require("./database/databaseConnection")
-const Blog = require("./model/blogModel")
-const bcrypt = require('bcrypt')
-const app = express() 
->>>>>>> 69b2d873a4d42502029bb3b3d440a4a5b9fb23dc
 // const multer = require("./middleware/multerConfig").multer
 // const storage = require("./middleware/multerConfig").storage
-const cookieParser = require('cookie-parser')
 
 app.use(cookieParser())
 
-<<<<<<< HEAD
 const { multer, storage } = require('./middleware/multerConfig')
 const { get } = require("mongoose")
 const isAuthenticated = require("./middleware/isAuthenticated")
 const upload = multer({ storage: storage })
-=======
-const {multer,storage} = require('./middleware/multerConfig') 
-const User = require("./model/userModel")
-const upload = multer({storage : storage})
-const jwt = require("jsonwebtoken")
-const isAuthenticated = require("./middleware/isAuthenticated")
->>>>>>> 69b2d873a4d42502029bb3b3d440a4a5b9fb23dc
 
 connectToDb()
 
@@ -46,7 +27,6 @@ app.use(cookieParser())
 
 app.set('view engine', 'ejs')
 
-<<<<<<< HEAD
 app.get("/", async (req, res) => {
     const blogs = await Blog.find().then((result)=>{
         res.render("./blog/home", { blogs: result })
@@ -54,23 +34,10 @@ app.get("/", async (req, res) => {
 })
 
 app.get("/about", (req, res) => {
-=======
-app.get("/", async (req,res)=>{
-    const blogs = await Blog.find() // always returns arrray 
-    res.render("./blog/home",{blogs})
-})
-
-app.get("/about",isAuthenticated, (req,res)=>{
->>>>>>> 69b2d873a4d42502029bb3b3d440a4a5b9fb23dc
     const name = "Manish Basnet"
     res.render("about.ejs", { name })
 })
-<<<<<<< HEAD
 app.get("/createblog", isAuthenticated,(req, res) => {
-=======
-app.get("/createblog",isAuthenticated, (req,res)=>{
-    console.log(req.userId)
->>>>>>> 69b2d873a4d42502029bb3b3d440a4a5b9fb23dc
     res.render("./blog/createBlog")
 })
 app.get("/createblog", (req, res) => {
