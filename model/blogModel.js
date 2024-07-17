@@ -13,6 +13,10 @@ const blogSchema = new Schema({
    }, 
    image : {
     type : String
+   },
+   author : {
+      type : mongoose.Schema.Types.ObjectId,
+      ref: "User"
    }
 })
 

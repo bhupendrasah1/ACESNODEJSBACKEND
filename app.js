@@ -28,9 +28,19 @@ app.use(cookieParser())
 app.set('view engine', 'ejs')
 
 app.get("/", async (req, res) => {
-    const blogs = await Blog.find().then((result)=>{
-        res.render("./blog/home", { blogs: result })
-    }) 
+    const blogs = await Blog.find()
+    const result = await blogs;
+    res.render("./blog/home.ejs", { blogs: result })
+    
+})
+
+app.post("/", async (req, res)=>{
+    const {query} = req.body
+    const blogs = await Blog.find({
+        title: query
+    })
+    const result = await blogs
+    res.render("./blog/home.ejs", {blogs: result })
 })
 
 app.get("/about", (req, res) => {
@@ -116,23 +126,25 @@ app.post("/Editblog/:id", upload.single('image'), async (req, res) => {
 
 app.get("/blog/:id", async (req, res) => {
     const id = req.params.id
-    const blog = await Blog.findById(id)
+    const blog = await Blog.findById(id).populate('author')
     res.render("./blog/blogs.ejs", { blog })
 })
 
-app.post("/createblog", upload.single('image'), async (req, res) => {
+app.post("/createblog", isAuthenticated, upload.single('image'), async (req, res) => {
     // const title = req.body.title 
     // const subtitle = req.body.subtitle 
     // const description  = req.body.description 
     const fileName = req.file.filename
     const { title, subtitle, description } = req.body
+
     // console.log(title,subtitle,description)
 
     await Blog.create({
         title,
         subtitle,
         description,
-        image: fileName
+        image: fileName,
+        author: req.userId
     })
     res.send("Blog created successfully")
 })
@@ -215,8 +227,13 @@ app.post("/login",async (req,res)=>{
 
 })
 
+app.get("/logout", (req, res)=>{
+    res.clearCookie("token")
+    res.redirect("/login")
+})
+
 app.use(express.static("./storage"))
-app.use(express.static("./public"))
+app.use(express.static("./public/"))
 
 
 app.listen(3000, () => {

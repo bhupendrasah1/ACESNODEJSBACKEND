@@ -56,6 +56,11 @@
             font-size: 18px;
             color: #666;
         }
+        .blog-author {
+            font-size: 18px;
+            font-weight: 800;
+            color: #666;
+        }
 
         .blog-description {
             margin-top: 10px;
@@ -81,6 +86,7 @@
             <div class="blog-content">
                 <div class="blog-title"><%-blog.title%></div>
                 <div class="blog-subtitle"><%-blog.subtitle%></div>
+                <div class="blog-author">Posted by: <%-blog.author?.username%></div>
                 <div class="blog-description">
                     <p>This is a sample blog post description. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque urna id pharetra sodales.</p>
                     <p>Integer feugiat ligula in odio interdum elementum. Sed vehicula ipsum in orci ultricies, a mattis sem feugiat.</p>
