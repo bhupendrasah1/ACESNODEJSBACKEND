@@ -44,20 +44,14 @@ app.post("/", async (req, res)=>{
 })
 
 app.get("/about", (req, res) => {
-    const name = "Manish Basnet"
+    const name = "Bhupendra Sah"
     res.render("about.ejs", { name })
 })
 app.get("/createblog", isAuthenticated,(req, res) => {
     res.render("./blog/createBlog")
 })
-app.get("/createblog", (req, res) => {
-    res.render("./blog/createBlog")
-})
-app.get("/deleteblfog/:id", async (req, res) => {
-    const id = req.params.id
-    await Blog.findByIdAndDelete(id)
-    res.redirect("/")
-})
+
+
 app.get("/Editblog/:id", async (req, res) => {
     const id = req.params.id
     const blog = await Blog.findById(id)
